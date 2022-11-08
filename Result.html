@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Result Page</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" sizes="16x16" href="icon-16x16.png">
+  <script type="text/javascript" src="result.js"></script>
+  <script type="text/javascript" src="Index.js"></script>
+  
+</head>
+
+<body>
+  <div id="contentout">
+    <div id="content">
+      <h1>IP Subnet Calculator</h1>
+      <p>
+        This calculator returns a variety of information regarding Internet
+        Protocol version 4 (IPv4) and IPv6 subnets including possible network
+        addresses, usable host ranges, subnet mask, and IP class, among
+        others.
+      </p>
+
+      <h2>IPv4 Subnet Calculator</h2>
+      <h2 class="h2result">Result</h2>
+      <br />
+      <table class="cinfoT" id="ipRow1">
+        <tr>
+          <td>IP Address:</td>
+          <td><span id="result-address"></span></td>
+        </tr>
+        <tr>
+          <td>Network Address:</td>
+          <td><span id="networkDisplay"></span></td>
+        </tr>
+        <tr>
+          <td>Usable Host IP Range:</td>
+          <td><span id="resRange"></span></td>
+        </tr>
+        <tr>
+          <td>Broadcast Address:</td>
+          <td><span id="broadDisplay"></span></td>
+        </tr>
+        <tr>
+          <td>Total Number of Hosts:</td>
+          <td><span id="hostTotal"></span></td>
+        </tr>
+        <tr>
+          <td>Number of Usable Hosts:</td>
+          <td><span id="hostDisplay"></span></td>
+        </tr>
+        <tr>
+          <td>Subnet Mask:</td>
+          <td><span id="subnetDisplay"></span></td>
+        </tr>
+        <tr>
+          <td>Wildcard Mask:</td>
+          <td><span id="wildDisplay"></span></td>
+        </tr>
+        <tr>
+          <td>Binary Subnet Mask:</td>
+          <td><span id="resBinMask"></span></td>
+        </tr>
+        <tr id="ipRow" class="ipRow">
+          <td>IP Class:</td>
+          <td><span id="resClass"></span></td>
+        </tr>
+        <tr>
+          <td>CIDR Notation:</td>
+          <td>/<span id="cidr"></span></td>
+        </tr>
+        <tr>
+          <td>IP Type:</td>
+          <td><span id="Typeip"></span></td>
+        </tr>
+        <tr>
+          <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+          <td>Short:</td>
+          <td><span id="result-short"></span> /<span id="short"></span></td>
+        </tr>
+        <tr>
+          <td>Binary ID:</td>
+          <td><span id="resBinID"></span></td>
+        </tr>
+        <tr>
+          <td>Integer ID:</td>
+          <td><span id="inId"></span></td>
+        </tr>
+        <tr>
+          <td>Hex ID:</td>
+          <td><span id="HexId"></span></td>
+        </tr>
+        <!-- <tr>
+              <td>in-addr.arpa:</td>
+              <td><span id="resultIP"></span></td>
+            </tr>
+            <tr>
+              <td>IPv4 Mapped Address:</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>6to4 Prefix:</td>
+              <td></td>
+            </tr> -->
+      </table>
+
+      <script>
+
+        function opnWindow() {
+        var count = 0;
+        const short = localStorage.getItem("Short");
+
+        const ipA = localStorage.getItem("A");
+        const ipB = localStorage.getItem("B");
+        const ipC = localStorage.getItem("C");
+        const ipD = localStorage.getItem("D");
+
+        const q1 = localStorage.getItem("ip1");
+        const q2 = localStorage.getItem("ip2");
+        const q3 = localStorage.getItem("ip3");
+        const q4 = localStorage.getItem("ip4");
+
+        const totalHostnum = localStorage.getItem("TotalHostnum");
+
+        const rangeA = localStorage.getItem("RangeA");
+        // const char = localStorage.getItem("Char");
+        const rangeB = localStorage.getItem("RangeB");
+
+        const ipBro1 = localStorage.getItem("Bro1");
+        const ipBro2 = localStorage.getItem("Bro2");
+        const ipBro3 = localStorage.getItem("Bro3");
+        const ipBro4 = localStorage.getItem("Bro4");
+
+        var num = Number(short);
+        var numTotal = Number(totalHostnum);
+
+        var cal = 0;
+        var n = 0;
+
+        if (num % 8 != 0) {
+          if (num >= 25 && num < 32) {
+            for (i = 0; i <= Number(ipD); i += numTotal) {
+              count++;
+            }
+
+            document.write(
+              "<h3>All " +
+              count +
+              "  of the Possible /" +
+              short +
+              " Networks for " + q1 + "." + q2 + "." + q3 + ".*</h3>"
+            );
+
+            document.write("<table class=cinfoT>");
+            document.write(" <tbody> ");
+            document.write(" <tr> ");
+            document.write("<td class=cinfoHd>Network Address</td>");
+            document.write("<td class=cinfoHd>Usable Host Range</td>");
+            document.write("<td class=cinfoHd>Broadcast Address:</td>");
+            document.write(" </tr> ");
+            document.write(" <tr> ");
+
+            for (rows = 0; rows <= Number(ipD); rows += numTotal) {
+
+              for (col = 1; col == 1; col++) {
+                document.write(
+                  "<td>" + q1 + "." + q2 + "." + q3 + "." + rows + "</td>"
+                );
+                for (col = 2; col == 2; col++) {
+                  document.write(
+                    "<td>" +
+                    q1 +
+                    "." +
+                    q2 +
+                    "." +
+                    q3 +
+                    "." +
+                    (rows + 1) +
+                    " - " +
+                    q1 +
+                    "." +
+                    q2 +
+                    "." +
+                    q3 +
+                    "." +
+                    (rows + 2) +
+                    "</td>"
+                  );
+                  for (col = 3; col == 3; col++) {
+                    document.write(
+                      "<td>" +
+                      q1 +
+                      "." +
+                      q2 +
+                      "." +
+                      q3 +
+                      "." +
+                      ipBro4 +
+                      "</td>"
+                    );
+                  }
+                }
+              }
+              document.write(" </tr> ");
+            }
+            document.write(" </tbody> ");
+            document.write(" </table> ");
+          } else if (num >= 17 && num < 24) {
+            for (i = 0; i <= Number(ipC); i += numTotal / 256) {
+              count++;
+            }
+
+            document.write(
+              "<h3>All " +
+              count +
+              "  of the Possible /" +
+              short +
+              " Networks for " + q1 + "." + q2 + ".*" + ".*</h3>"
+            );
+
+            document.write("<table class=cinfoT>");
+            document.write(" <tbody> ");
+            document.write(" <tr> ");
+            document.write("<td class=cinfoHd>Network Address</td>");
+            document.write("<td class=cinfoHd>Usable Host Range</td>");
+            document.write("<td class=cinfoHd>Broadcast Address:</td>");
+            document.write(" </tr> ");
+            document.write(" <tr> ");
+
+            for (rows = 0; rows <= Number(ipC); rows += numTotal / 256) {
+              for (col = 1; col == 1; col++) {
+                document.write(
+                  "<td>" + q1 + "." + q2 + "." + rows + "." + ipD + "</td>"
+                );
+                for (col = 2; col == 2; col++) {
+                  document.write(
+                    "<td>" +
+                    q1 +
+                    "." +
+                    q2 +
+                    "." +
+                    rows +
+                    "." +
+                    (Number(ipD) + 1) +
+                    " - " +
+                    q1 +
+                    "." +
+                    q2 +
+                    "." +
+                    (rows + 1) +
+                    "." +
+                    ipC +
+                    "</td>"
+                  );
+                  for (col = 3; col == 3; col++) {
+                    document.write(
+                      "<td>" +
+                      q1 +
+                      "." +
+                      q2 +
+                      "." +
+                      (rows + 1) +
+                      "." +
+                      ipBro4 +
+                      "</td>"
+                    );
+                  }
+                }
+              }
+              document.write(" </tr> ");
+            }
+            document.write(" </tbody> ");
+            document.write(" </table> ");
+          } else if (num >= 9 && num < 16) {
+            for (i = 0; i <= Number(ipB); i += numTotal / 65536) {
+              count++;
+            }
+
+            document.write(
+              "<h3>All " +
+              count +
+              "  of the Possible /" +
+              short +
+              " Networks for " + q1 + ".*" + ".*" + ".*</h3>"
+            );
+
+            document.write("<table class=cinfoT>");
+            document.write(" <tbody> ");
+            document.write(" <tr> ");
+            document.write("<td class=cinfoHd>Network Address</td>");
+            document.write("<td class=cinfoHd>Usable Host Range</td>");
+            document.write("<td class=cinfoHd>Broadcast Address:</td>");
+            document.write(" </tr> ");
+            document.write(" <tr> ");
+
+            for (rows = 0; rows <= Number(ipB); rows += numTotal / 65536) {
+              for (col = 1; col == 1; col++) {
+                document.write(
+                  "<td>" + q1 + "." + rows + "." + ipC + "." + ipD + "</td>"
+                );
+                for (col = 2; col == 2; col++) {
+                  n += numTotal / 65536;
+                  document.write(
+                    "<td>" +
+                    q1 +
+                    "." +
+                    rows +
+                    "." +
+                    ipC +
+                    "." +
+                    (Number(ipD) + 1) +
+                    " - " +
+                    q1 +
+                    "." +
+                    (n - 1) +
+                    "." +
+                    ipBro4 +
+                    "." +
+                    ipB +
+                    "</td>"
+                  );
+                  for (col = 3; col == 3; col++) {
+                    document.write(
+                      "<td>" +
+                      q1 +
+                      "." +
+                      (rows + 1) +
+                      "." +
+                      ipBro4 +
+                      "." +
+                      ipBro4 +
+                      "</td>"
+                    );
+                  }
+                }
+              }
+              document.write(" </tr> ");
+            }
+            document.write(" </tbody> ");
+            document.write(" </table> ");
+          } else if (num < 8) {
+
+            document.getElementById("ipRow").deleteCell(0);
+
+            for (i = 0; i <= Number(ipA); i += numTotal / 16777216) {
+              count++;
+            }
+
+            document.write(
+              "<h3>All " +
+              count +
+              "  of the Possible /" +
+              short +
+              " Networks </h3>"
+            );
+
+            document.write("<table class=cinfoT>");
+            document.write(" <tbody> ");
+            document.write(" <tr> ");
+            document.write("<td class=cinfoHd>Network Address</td>");
+            document.write("<td class=cinfoHd>Usable Host Range</td>");
+            document.write("<td class=cinfoHd>Broadcast Address:</td>");
+            document.write(" </tr> ");
+            document.write(" <tr> ");
+
+            for (rows = 0; rows <= Number(ipA); rows += numTotal / 16777216) {
+              for (col = 1; col == 1; col++) {
+                document.write(
+                  "<td>" + rows + "." + ipB + "." + ipC + "." + ipD + "</td>"
+                );
+                for (col = 2; col == 2; col++) {
+                  n += numTotal / 16777216;
+                  document.write(
+                    "<td>" +
+                    rows +
+                    "." +
+                    ipB +
+                    "." +
+                    ipC +
+                    "." +
+                    (Number(ipD) + 1) +
+                    " - " +
+                    (n - 1) +
+                    "." +
+                    ipBro2 +
+                    "." +
+                    ipBro4 +
+                    "." +
+                    ipA +
+                    "</td>"
+                  );
+                  for (col = 3; col == 3; col++) {
+                    document.write(
+                      "<td>" +
+                      (n - 1) +
+                      "." +
+                      ipBro4 +
+                      "." +
+                      ipBro4 +
+                      "." +
+                      ipBro4 +
+                      "</td>"
+                    );
+                  }
+                }
+              }
+              document.write(" </tr> ");
+            }
+            document.write(" </tbody> ");
+            document.write(" </table> ");
+          }
+        }
+      }
+      
+      opnWindow();
+
+      </script>
+
+      <div id="contentout">
+        <div id="content">
+          <h2></h2>
+          <div class="panel">
+
+            <form name="calform" action="Result.html" method="post">
+              <table id="ipv4table" cellpadding="3">
+                <tr>
+                  <td>Network Class</td>
+                  <td>
+                    <label for="cclass0" class="cbcontainer"><input type="radio" name="cclass" id="cclass0" value="any"
+                        checked onclick="popSubnet('any');" /><span class="sbmark"></span>Any</label>
+                    &nbsp;
+                    <label for="cclass1" class="cbcontainer"><input type="radio" name="cclass" id="cclass1" value="a"
+                        onclick="popSubnet('a');" /><span class="rbmark"></span>A</label>
+                    &nbsp;
+                    <label for="cclass2" class="cbcontainer"><input type="radio" name="cclass" id="cclass2" value="b"
+                        onclick="popSubnet('b');" /><span class="rbmark"></span>B</label>
+                    &nbsp;
+                    <label for="cclass3" class="cbcontainer"><input type="radio" name="cclass" id="cclass3" value="c"
+                        onclick="popSubnet('c');" /><span class="rbmark"></span>C</label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Subnet</td>
+                  <td>
+                    <select name="csubnet" id="csubnet" onChange="return setSubnetV(this.value);"></select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>IP Address</td>
+                  <td>
+                    <input type="text" name="cip" id="cip" value="202.28.78.246" class="inlonger"
+                      onKeyUp="iptfieldCheck(this, 'r', '');" />
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" align="center">
+                    <input type="hidden" name="ctype" id="ctype" value="ipv4" />
+                    <input name="printit" value="0" type="hidden" />
+                    <input type="submit" value="Calculate" alt="Calculate" onclick="handleSubmit()"
+                      style="margin-top: 10px" />
+                    <input type="button" value="Clear" alt="Clear" class="clearbtn"
+                      onclick="clearForm(document.calform)" />
+                  </td>
+                </tr>
+              </table>
+            </form>
+          </div>
+          <br>
+            <p>Below is a table providing typical subnets for IPv4. </p>
+            <table class="cinfoT" align="center">
+                <tr>
+                    <td class="cinfoHd">Prefix size</td>
+                    <td class="cinfoHdL">Network mask</td>
+                    <td class="cinfoHdL">Usable hosts per subnet</td>
+                </tr>
+                <tr>
+                    <td>/1</td>
+                    <td>128.0.0.0</td>
+                    <td align="right">2,147,483,646</td>
+                </tr>
+                <tr>
+                    <td>/2</td>
+                    <td>192.0.0.0</td>
+                    <td align="right">1,073,741,822</td>
+                </tr>
+                <tr>
+                    <td>/3</td>
+                    <td>224.0.0.0</td>
+                    <td align="right">536,870,910</td>
+                </tr>
+                <tr>
+                    <td>/4</td>
+                    <td>240.0.0.0</td>
+                    <td align="right">268,435,454</td>
+                </tr>
+                <tr>
+                    <td>/5</td>
+                    <td>248.0.0.0</td>
+                    <td align="right">134,217,726</td>
+                </tr>
+                <tr>
+                    <td>/6</td>
+                    <td>252.0.0.0</td>
+                    <td align="right">67,108,862</td>
+                </tr>
+                <tr>
+                    <td>/7</td>
+                    <td>254.0.0.0</td>
+                    <td align="right">33,554,430</td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center"><b>Class A</b></td>
+                </tr>
+                <tr>
+                    <td>/8</td>
+                    <td>255.0.0.0</td>
+                    <td align="right">16,777,214</td>
+                </tr>
+                <tr>
+                    <td>/9</td>
+                    <td>255.128.0.0</td>
+                    <td align="right">8,388,606</td>
+                </tr>
+                <tr>
+                    <td>/10</td>
+                    <td>255.192.0.0</td>
+                    <td align="right">4,194,302</td>
+                </tr>
+                <tr>
+                    <td>/11</td>
+                    <td>255.224.0.0</td>
+                    <td align="right">2,097,150</td>
+                </tr>
+                <tr>
+                    <td>/12</td>
+                    <td>255.240.0.0</td>
+                    <td align="right">1,048,574</td>
+                </tr>
+                <tr>
+                    <td>/13</td>
+                    <td>255.248.0.0</td>
+                    <td align="right">524,286</td>
+                </tr>
+                <tr>
+                    <td>/14</td>
+                    <td>255.252.0.0</td>
+                    <td align="right">262,142</td>
+                </tr>
+                <tr>
+                    <td>/15</td>
+                    <td>255.254.0.0</td>
+                    <td align="right">131,070</td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center"><b>Class B</b></td>
+                </tr>
+                <tr>
+                    <td>/16</td>
+                    <td>255.255.0.0</td>
+                    <td align="right">65,534</td>
+                </tr>
+                <tr>
+                    <td>/17</td>
+                    <td>255.255.128.0</td>
+                    <td align="right">32,766</td>
+                </tr>
+                <tr>
+                    <td>/18</td>
+                    <td>255.255.192.0</td>
+                    <td align="right">16,382</td>
+                </tr>
+                <tr>
+                    <td>/19</td>
+                    <td>255.255.224.0</td>
+                    <td align="right">8,190</td>
+                </tr>
+                <tr>
+                    <td>/20</td>
+                    <td>255.255.240.0</td>
+                    <td align="right">4,094</td>
+                </tr>
+                <tr>
+                    <td>/21</td>
+                    <td>255.255.248.0</td>
+                    <td align="right">2,046</td>
+                </tr>
+                <tr>
+                    <td>/22</td>
+                    <td>255.255.252.0</td>
+                    <td align="right">1,022</td>
+                </tr>
+                <tr>
+                    <td>/23</td>
+                    <td>255.255.254.0</td>
+                    <td align="right">510</td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center"><b>Class C</b></td>
+                </tr>
+                <tr>
+                    <td>/24</td>
+                    <td>255.255.255.0</td>
+                    <td align="right">254</td>
+                </tr>
+                <tr>
+                    <td>/25</td>
+                    <td>255.255.255.128</td>
+                    <td align="right">126</td>
+                </tr>
+                <tr>
+                    <td>/26</td>
+                    <td>255.255.255.192</td>
+                    <td align="right">62</td>
+                </tr>
+                <tr>
+                    <td>/27</td>
+                    <td>255.255.255.224</td>
+                    <td align="right">30</td>
+                </tr>
+                <tr>
+                    <td>/28</td>
+                    <td>255.255.255.240</td>
+                    <td align="right">14</td>
+                </tr>
+                <tr>
+                    <td>/29</td>
+                    <td>255.255.255.248</td>
+                    <td align="right">6</td>
+                </tr>
+                <tr>
+                    <td>/30</td>
+                    <td>255.255.255.252</td>
+                    <td align="right">2</td>
+                </tr>
+                <tr>
+                    <td>/31</td>
+                    <td>255.255.255.254</td>
+                    <td align="right">0</td>
+                </tr>
+                <tr>
+                    <td>/32</td>
+                    <td>255.255.255.255</td>
+                    <td align="right">0</td>
+                </tr>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    csubnet = "30";
+    function setSubnetV(inval) {
+      csubnet = inval;
+      return false;
+    }
+
+    function popSubnet(inval) {
+      //alert(csubnet);
+      var lowerlimit = 0;
+      if (inval == "a") lowerlimit = 8;
+      if (inval == "b") lowerlimit = 16;
+      if (inval == "c") lowerlimit = 24;
+
+      var allSubnets = [
+        [32, "255.255.255.255 /32"],
+        [31, "255.255.255.254 /31"],
+        [30, "255.255.255.252 /30"],
+        [29, "255.255.255.248 /29"],
+        [28, "255.255.255.240 /28"],
+        [27, "255.255.255.224 /27"],
+        [26, "255.255.255.192 /26"],
+        [25, "255.255.255.128 /25"],
+        [24, "255.255.255.0 /24"],
+        [23, "255.255.254.0 /23"],
+        [22, "255.255.252.0 /22"],
+        [21, "255.255.248.0 /21"],
+        [20, "255.255.240.0 /20"],
+        [19, "255.255.224.0 /19"],
+        [18, "255.255.192.0 /18"],
+        [17, "255.255.128.0 /17"],
+        [16, "255.255.0.0 /16"],
+        [15, "255.254.0.0 /15"],
+        [14, "255.252.0.0 /14"],
+        [13, "255.248.0.0 /13"],
+        [12, "255.240.0.0 /12"],
+        [11, "255.224.0.0 /11"],
+        [10, "255.192.0.0 /10"],
+        [9, "255.128.0.0 /9"],
+        [8, "255.0.0.0 /8"],
+        [7, "254.0.0.0 /7"],
+        [6, "252.0.0.0 /6"],
+        [5, "248.0.0.0 /5"],
+        [4, "240.0.0.0 /4"],
+        [3, "224.0.0.0 /3"],
+        [2, "192.0.0.0 /2"],
+        [1, "128.0.0.0 /1"],
+      ];
+
+      var thisSelect = document.getElementById("csubnet");
+      thisSelect.options.length = 0;
+      for (i = 0; i < allSubnets.length; i++) {
+        if (allSubnets[i][0] >= lowerlimit) {
+          var thisOption = document.createElement("option");
+          thisOption.value = allSubnets[i][0];
+          thisOption.innerHTML = allSubnets[i][1];
+          if (csubnet == allSubnets[i][0]) thisOption.selected = true;
+          thisSelect.appendChild(thisOption);
+        }
+      }
+    }
+    popSubnet("any");
+  </script>
+
+</body>
+
+</html>
